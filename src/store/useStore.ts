@@ -57,18 +57,12 @@ const CONSTANT_WIDTH = 300;
 const CONSTANT_HEIGHT = 200;
 
 const getRandomColor = () => {
-  const colors = [
-    "#f87171",
-    "#fb923c",
-    "#fbbf24",
-    "#a3e635",
-    "#34d399",
-    "#22d3ee",
-    "#818cf8",
-    "#e879f9",
-    "#f472b6",
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 };
 
 export const useStore = create<StoreState>((set) => ({
