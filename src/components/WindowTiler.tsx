@@ -3,9 +3,20 @@ import { useStore } from "../store/useStore";
 import Window from "./Window";
 import TiledLayer from "./TiledLayer";
 import SnapIndicator from "./SnapIndicator";
+import HelpModal from "./HelpModal";
 import { findNodeAtPoint } from "../utils/layoutUtils";
 
 const WindowTiler = () => {
+  const [showHelp, setShowHelp] = React.useState(false);
+
+  React.useEffect(() => {
+    const hasVisited = localStorage.getItem("hasVisitedWindowTiler");
+    if (!hasVisited) {
+      setShowHelp(true);
+      localStorage.setItem("hasVisitedWindowTiler", "true");
+    }
+  }, []);
+
   const {
     windows,
     floatingWindows,
@@ -280,9 +291,22 @@ const WindowTiler = () => {
       <button
         onClick={createWindow}
         className="fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg text-3xl flex items-center justify-center z-[99999] transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+        title="Add New Window"
       >
         +
       </button>
+
+      {/* Help Button */}
+      <button
+        onClick={() => setShowHelp(true)}
+        className="fixed top-6 right-6 w-10 h-10 bg-slate-800 hover:bg-slate-700 text-white rounded-full shadow-lg flex items-center justify-center z-[99999] transition-transform hover:scale-105 active:scale-95 cursor-pointer border border-slate-600 text-lg font-bold"
+        title="Help & Instructions"
+      >
+        ?
+      </button>
+
+      {/* Help Modal */}
+      {showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
     </div>
   );
 };
