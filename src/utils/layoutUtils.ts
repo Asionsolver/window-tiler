@@ -1,4 +1,4 @@
-import type { TreeNode, SplitNode } from "../store/useStore";
+import type { TreeNode } from "../store/useStore";
 
 export interface NodeRect {
   x: number;
